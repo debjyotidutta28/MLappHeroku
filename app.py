@@ -2,7 +2,7 @@ import dlib
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
-#import tensorflow as tf
+import tensorflow as tf
 #from tensorflow import keras 
 #from tensorflow.keras import Sequential
 #from tensorflow.keras.layers import Dense,Flatten,MaxPool2D,Conv2D,Dropout,MaxPooling2D,BatchNormalization
@@ -17,6 +17,9 @@ diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
 heart_disease_model = pickle.load(open('heart_disease_model.sav', 'rb'))
 
 parkinsons_model = pickle.load(open('parkinsons_model.sav', 'rb'))
+
+emotion_model = tf.keras.models.load_model('saved_model')
+
 
 
 
@@ -42,11 +45,14 @@ if (selected == 'Emotion Detection'):
     
     # getting the input data from the user
     image = st.file_uploader('upload image here', ['jpg'], accept_multiple_files=False)
+    test1 = tf.keras.preprocessing.image.load_img(image, target_size=(224,224))
     
+    input_arr = tf.keras.preprocessing.image.img_to_array(test1)
+    test1 = np.array([input_arr])
         
     
     # code for Prediction
-    diab_diagnosis = ''
+    diab_diagnosis = test1.shape
     
     # creating a button for Prediction
     
