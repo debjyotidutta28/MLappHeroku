@@ -62,7 +62,7 @@ if (selected == 'Emotion Detection'):
     # creating a button for Prediction
     
     if st.button('Emotion Result'):
-        emotion_prediction = emotion_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
+        emotion_prediction = emotion_model.predict(test1)
         diab_diagnosis = emotion_prediction[0]
         #if (diab_prediction[0] == 1):
          # diab_diagnosis = 'The person is diabetic'
