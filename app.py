@@ -1,8 +1,8 @@
-import dlib
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
 import tensorflow as tf
+import numpy as np
 #from tensorflow import keras 
 #from tensorflow.keras import Sequential
 #from tensorflow.keras.layers import Dense,Flatten,MaxPool2D,Conv2D,Dropout,MaxPooling2D,BatchNormalization
@@ -18,7 +18,7 @@ heart_disease_model = pickle.load(open('heart_disease_model.sav', 'rb'))
 
 parkinsons_model = pickle.load(open('parkinsons_model.sav', 'rb'))
 
-#emotion_model = tf.keras.models.load_model('saved_model')
+emotion_model = tf.keras.models.load_model('saved_model')
 
 
 
@@ -44,27 +44,30 @@ if (selected == 'Emotion Detection'):
     
     
     # getting the input data from the user
-    image = st.file_uploader('upload image here', ['jpg'], accept_multiple_files=False)
+    image = st.file_uploader('upload image here', ['jpg', 'jpeg'], accept_multiple_files=False)
     
+    text ='File not uploaded'
+
     if image is not None:
         test1 = tf.keras.preprocessing.image.load_img(image, target_size=(224,224))
     
-    input_arr = tf.keras.preprocessing.image.img_to_array(test1)
-    test1 = np.array([input_arr])
+        input_arr = tf.keras.preprocessing.image.img_to_array(test1)
+        test1 = np.array([input_arr])
         
+        text = str(test1.shape)
     
     # code for Prediction
-    diab_diagnosis = test1.shape
+    diab_diagnosis = ''
     
     # creating a button for Prediction
     
     if st.button('Emotion Result'):
         emotion_prediction = emotion_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
-        
-        if (diab_prediction[0] == 1):
-          diab_diagnosis = 'The person is diabetic'
-        else:
-          diab_diagnosis = 'The person is not diabetic'
+        diab_diagnosis = emotion_prediction[0]
+        #if (diab_prediction[0] == 1):
+         # diab_diagnosis = 'The person is diabetic'
+        #else:
+         # diab_diagnosis = 'The person is not diabetic'
         
     st.success(diab_diagnosis)
 
