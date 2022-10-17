@@ -18,7 +18,7 @@ heart_disease_model = pickle.load(open('heart_disease_model.sav', 'rb'))
 
 parkinsons_model = pickle.load(open('parkinsons_model.sav', 'rb'))
 
-emotion_model = tf.keras.models.load_model('saved_model')
+#emotion_model = tf.keras.models.load_model('saved_model')
 
 
 
