@@ -45,7 +45,9 @@ if (selected == 'Emotion Detection'):
     
     # getting the input data from the user
     image = st.file_uploader('upload image here', ['jpg'], accept_multiple_files=False)
-    test1 = tf.keras.preprocessing.image.load_img(image, target_size=(224,224))
+    
+    if image is not None:
+        test1 = tf.keras.preprocessing.image.load_img(image, target_size=(224,224))
     
     input_arr = tf.keras.preprocessing.image.img_to_array(test1)
     test1 = np.array([input_arr])
