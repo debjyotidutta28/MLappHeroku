@@ -2,7 +2,13 @@ import dlib
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
-
+#import tensorflow as tf
+#from tensorflow import keras 
+#from tensorflow.keras import Sequential
+#from tensorflow.keras.layers import Dense,Flatten,MaxPool2D,Conv2D,Dropout,MaxPooling2D,BatchNormalization
+#from tensorflow.keras.preprocessing import image_dataset_from_directory
+#from tensorflow.keras.preprocessing.image import ImageDataGenerator
+#from keras import regularizers
 
 # loading the saved models
 
@@ -19,12 +25,43 @@ with st.sidebar:
     
     selected = option_menu('Multiple Disease Prediction System',
                           
-                          ['Diabetes Prediction',
+                          ['Emotion Detection',
+                           'Diabetes Prediction',
                            'Heart Disease Prediction',
                            'Parkinsons Prediction'],
-                          icons=['activity','heart','person'],
+                          icons=['heart','activity','heart','person'],
                           default_index=0)
+
     
+# Emotion Detection Page
+if (selected == 'Emotion Detection'):
+    
+    # page title
+    st.title('Emotion Detection using Transfer Learning')
+    
+    
+    # getting the input data from the user
+    image = st.file_uploader('upload image here', ['jpg'], accept_multiple_files=False)
+    
+        
+    
+    # code for Prediction
+    diab_diagnosis = ''
+    
+    # creating a button for Prediction
+    
+    if st.button('Emotion Result'):
+        emotion_prediction = emotion_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
+        
+        if (diab_prediction[0] == 1):
+          diab_diagnosis = 'The person is diabetic'
+        else:
+          diab_diagnosis = 'The person is not diabetic'
+        
+    st.success(diab_diagnosis)
+
+
+
     
 # Diabetes Prediction Page
 if (selected == 'Diabetes Prediction'):
